@@ -1,0 +1,227 @@
+drop table if exists admin;
+
+drop table if exists book;
+
+drop table if exists course;
+
+drop table if exists enrollment;
+
+drop table if exists machine;
+
+drop table if exists phytest;
+
+drop table if exists ptbook;
+
+drop table if exists ptrecord;
+
+drop table if exists ptscore;
+
+drop table if exists ptstand;
+
+drop table if exists school;
+
+drop table if exists student;
+
+drop table if exists superadmin;
+
+drop table if exists teacher;
+
+/*==============================================================*/
+/* Table: admin                                                 */
+/*==============================================================*/
+create table admin
+(
+   admin_id             int not null AUTO_INCREMENT,
+   admin_num            varchar(30),
+   admin_name           varchar(30),
+   admin_pwd            varchar(20),
+   admin_phone          varchar(11),
+   admin_email          varchar(50),
+   admin_avatar         varchar(255),
+   admin_info           varchar(50),
+   primary key (admin_id)
+);
+
+/*==============================================================*/
+/* Table: book                                                  */
+/*==============================================================*/
+create table book
+(
+   stu_id               int not null,
+   ptbook_id            int not null,
+   primary key (stu_id, ptbook_id)
+);
+
+/*==============================================================*/
+/* Table: course                                                */
+/*==============================================================*/
+create table course
+(
+   course_id            int not null AUTO_INCREMENT,
+   tea_id               int,
+   course_num           varchar(30),
+   course_name          varchar(40),
+   course_time          datetime,
+   course_addr          varchar(50),
+   primary key (course_id)
+);
+
+/*==============================================================*/
+/* Table: enrollment                                            */
+/*==============================================================*/
+create table enrollment
+(
+   stu_id               int not null,
+   course_id            int not null,
+   primary key (stu_id, course_id)
+);
+
+/*==============================================================*/
+/* Table: machine                                               */
+/*==============================================================*/
+create table machine
+(
+   mac_id               int not null AUTO_INCREMENT,
+   mac_num              varchar(30),
+   mac_name             varchar(30),
+   mac_type             varchar(20),
+   primary key (mac_id)
+);
+
+/*==============================================================*/
+/* Table: phytest                                               */
+/*==============================================================*/
+create table phytest
+(
+   pt_id                int not null AUTO_INCREMENT,
+   pt_num               varchar(30),
+   pt_name              varchar(30),
+   pt_weight            decimal,
+   primary key (pt_id)
+);
+
+/*==============================================================*/
+/* Table: ptbook                                                */
+/*==============================================================*/
+create table ptbook
+(
+   ptbook_id            int not null AUTO_INCREMENT,
+   ptbook_con           int,
+   ptbook_apnum         int,
+   ptbook_begintime     datetime,
+   ptbook_testtime      datetime,
+   ptbook_endtime       datetime,
+   primary key (ptbook_id)
+);
+
+/*==============================================================*/
+/* Table: ptrecord                                              */
+/*==============================================================*/
+create table ptrecord
+(
+   ptr_id               int not null AUTO_INCREMENT,
+   mac_id               int,
+   admin_id             int,
+   pt_id                int,
+   stu_id               int,
+   ptr_num              varchar(30),
+   ptr_score            varchar(30),
+   ptr_wscore           decimal,
+   ptr_date             datetime,
+   primary key (ptr_id)
+);
+
+/*==============================================================*/
+/* Table: ptscore                                               */
+/*==============================================================*/
+create table ptscore
+(
+   ptscore_id           int not null AUTO_INCREMENT,
+   stu_id               int,
+   ptscore_score        decimal,
+   ptscore_satart       datetime,
+   ptscore_end          datetime,
+   ptscore_lack         bool,
+   primary key (ptscore_id)
+);
+
+/*==============================================================*/
+/* Table: ptstand                                               */
+/*==============================================================*/
+create table ptstand
+(
+   stand_id             int not null AUTO_INCREMENT,
+   pt_id                int,
+   stand_num            varchar(30),
+   stand_level          varchar(10),
+   stand_score          decimal,
+   stand_grade          varchar(10),
+   stand_gender         varchar(5),
+   stand_min            decimal,
+   stand_max            decimal,
+   primary key (stand_id)
+);
+
+/*==============================================================*/
+/* Table: school                                                */
+/*==============================================================*/
+create table school
+(
+   sch_id               int not null AUTO_INCREMENT,
+   sch_num              varchar(30),
+   sch_name             varchar(30),
+   primary key (sch_id)
+);
+
+/*==============================================================*/
+/* Table: student                                               */
+/*==============================================================*/
+create table student
+(
+   stu_id               int not null AUTO_INCREMENT,
+   sch_id               int,
+   stu_num              varchar(30),
+   stu_name             varchar(30),
+   stu_sex              varchar(5),
+   college              varchar(40),
+   major                varchar(40),
+   stu_class            varchar(30),
+   stu_pwd              varchar(20),
+   stu_phone            varchar(11),
+   stu_email            varchar(50),
+   stu_avatar           varchar(255),
+   primary key (stu_id)
+);
+
+/*==============================================================*/
+/* Table: superadmin                                            */
+/*==============================================================*/
+create table superadmin
+(
+   super_id             int not null AUTO_INCREMENT,
+   super_num            varchar(30),
+   super_pwd            varchar(20),
+   super_name           varchar(30),
+   super_phone          varchar(11),
+   super_email          varchar(50),
+   super_avatar         varchar(255),
+   super_info           varchar(50),
+   primary key (super_id)
+);
+
+/*==============================================================*/
+/* Table: teacher                                               */
+/*==============================================================*/
+create table teacher
+(
+   tea_id               int not null AUTO_INCREMENT,
+   sch_id               int,
+   tea_num              varchar(30),
+   tea_name             varchar(30),
+   tea_sex              varchar(5),
+   tea_pwd              varchar(20),
+   tea_phone            varchar(11),
+   tea_email            varchar(50),
+   tea_avatar           varchar(255),
+   primary key (tea_id)
+);
